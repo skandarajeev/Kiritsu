@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.env
+logs/
+*.log
+.DS_Store
+*.rdb
+.idea/
+db.json
+package-lock.json
+.vscode
+.env.local
+*.key
+*.cert
+pids/
