@@ -43,7 +43,10 @@ async function getInformation(_address) {
     .set({ ...JSON.parse(JSON.stringify(info)) });
 }
 
-async function claim(_idn) {}
+async function claim(_idn) {
+  let transaction = await smartContract.populateTransaction.refresh(_idn);
+  console.log(await wallet.sendTransaction(transaction));
+}
 
 // main(3489348, 3943493, 343434, "0.000")
 //   .then(() => process.exit(0))
@@ -52,3 +55,4 @@ async function claim(_idn) {}
 //     process.exit(1);
 //   });
 getInformation("0x6332264bcf485381b64413b9a8f1735b4e97dca1");
+claim(0);
