@@ -1,9 +1,10 @@
-const ethers = require("ethers");
+import ethers from "ethers";
 // const solc = require("solc")
-const fs = require("fs");
-var admin = require("firebase-admin");
+import fs from "fs";
+import admin from "firebase-admin";
 
-require("dotenv").config();
+import dotenv from "dotenv";
+dotenv.config();
 
 let provider = new ethers.providers.JsonRpcProvider(process.env.RPC_URL);
 let wallet = new ethers.Wallet(process.env.PRIVATE_KEY, provider);
@@ -14,7 +15,7 @@ let smartContract = new ethers.Contract(
   provider
 );
 
-var serviceAccount = require("./db.json");
+var serviceAccount = "./db.json";
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
@@ -34,13 +35,14 @@ async function main(_steamId, _gameId, _time, _stake) {
   return transaction;
 }
 
-async function getInformation(_address) {
+export async function getInformation(_address) {
   let info = await smartContract.info(_address);
   console.log();
-  await db
-    .collection("Addresses")
-    .doc(_address.toString())
-    .set({ ...JSON.parse(JSON.stringify(info)) });
+  // await db
+  //   .collection("Addresses")
+  //   .doc(_address.toString())
+  //   .set({});
+  return { ...JSON.parse(JSON.stringify(info)) };
 }
 
 async function claim(_idn) {
@@ -54,5 +56,5 @@ async function claim(_idn) {
 //     console.error(error);
 //     process.exit(1);
 //   });
-getInformation("0x6332264bcf485381b64413b9a8f1735b4e97dca1");
-claim(0);
+//getInformation("0x6332264bcf485381b64413b9a8f1735b4e97dca1");
+//claim(0);
